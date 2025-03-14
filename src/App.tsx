@@ -26,17 +26,17 @@ function App() {
   const serviceCards = [
     {
       title: "Heritage & Legacy",
-      image: "./src/images/HNL.jpg", // update with the correct image path
+      image: "/images/HNL.jpg", // update with the correct image path
       description: "Lallooji Shivgovind Das Tent Co. was established in 1921 by Late Shri Lallooji and has been passed down through four generations. It began by serving major events like the Kumbh Mela and Magh Mela on the banks of the holy Ganges, evolving into a nationally recognized brand known for its innovative solutions."
     },
     {
       title: "Services Provided",
-      image: "./src/images/CS.jpg",
+      image: "/images/CS.jpg",
       description: "The company offers a wide range of services, including tenting, barricading, camp setups, and temporary structures for events, exhibitions, pilgrim shelters, and administrative purposes. These solutions are equipped with essential utilities like electrical fitting , toiletry services, ensuring comprehensive support for any need."
     },
     {
       title: "Commitment to Excellence",
-      image: "./src/images/heroimagereal.jpg",
+      image: "/images/heroimagereal.jpg",
       description: "With extensive resources and a dedication to maintaining international standards, Lallooji Shivgovind Das Tent Co. ensures that every project is a success. Their professional management and value-added services focus on creativity and imagination, setting clients apart from the competition."
     },
   ];
@@ -116,7 +116,7 @@ function App() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center space-x-2">
-            <img src="./src/images/lalloji logo.png" alt="Lalloji Logo" className="h-8 w-8" />
+            <img src="/images/lalloji logo.png" alt="Lalloji Logo" className="h-8 w-8" />
               <span className="text-white font-bold text-xl">Lallooji Shivgoind Das Tent Co.</span>
             </div>
 
@@ -191,14 +191,14 @@ function App() {
     className="absolute inset-0 w-full h-full object-cover z-0"
     style={{ filter: 'brightness(0.5)' }}
   >
-    <source src="./src/videos/heropagevid.mp4" type="video/mp4" />
+    <source src="/videos/heropagevid.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
   {/* Texture overlay */}
   <div 
     className="absolute inset-0 z-10"
     style={{
-      backgroundImage: 'url("./src/textures/cross-stripes.png")',
+      backgroundImage: 'url("/textures/cross-stripes.png")',
       backgroundRepeat: 'repeat',
       mixBlendMode: 'overlay',
       opacity: 0.25
