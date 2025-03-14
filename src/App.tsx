@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone, Tent, Calendar, Users, Music, Utensils, PartyPopper, Menu, X } from 'lucide-react';
+import { Mail, MapPin, Phone, Tent, Calendar, Users, Music, PartyPopper, Menu, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,8 +17,36 @@ function App() {
     email: '',
     phone: '',
     location: '',
-    details: ''
+    details: '',
+    startDate: '',
+    endDate: ''
   });
+
+  // Service Cards Data
+  const serviceCards = [
+    {
+      title: "Heritage & Legacy",
+      image: "./src/images/HNL.jpg", // update with the correct image path
+      description: "Lallooji Shivgovind Das Tent Co. was established in 1921 by Late Shri Lallooji and has been passed down through four generations. It began by serving major events like the Kumbh Mela and Magh Mela on the banks of the holy Ganges, evolving into a nationally recognized brand known for its innovative solutions."
+    },
+    {
+      title: "Services Provided",
+      image: "./src/images/CS.jpg",
+      description: "The company offers a wide range of services, including tenting, barricading, camp setups, and temporary structures for events, exhibitions, pilgrim shelters, and administrative purposes. These solutions are equipped with essential utilities like electrical fitting , toiletry services, ensuring comprehensive support for any need."
+    },
+    {
+      title: "Commitment to Excellence",
+      image: "./src/images/heroimagereal.jpg",
+      description: "With extensive resources and a dedication to maintaining international standards, Lallooji Shivgovind Das Tent Co. ensures that every project is a success. Their professional management and value-added services focus on creativity and imagination, setting clients apart from the competition."
+    },
+  ];
+
+  // State to manage which cards are open (showing description)
+  const [openCards, setOpenCards] = useState<Record<number, boolean>>({});
+
+  const toggleCard = (index: number) => {
+    setOpenCards(prev => ({ ...prev, [index]: !prev[index] }));
+  };
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -47,6 +75,8 @@ function App() {
           from_email: formData.email,
           phone: formData.phone,
           location: formData.location,
+          start_date:formData.startDate,
+          end_date:formData.endDate,
           message: formData.details,
           to_email: 'srijanwh@gmail.com',
         },
@@ -63,7 +93,9 @@ function App() {
         email: '',
         phone: '',
         location: '',
-        details: ''
+        startDate:'',
+        endDate:'',
+        details: '',
       });
     } catch (error) {
       toast({
@@ -150,67 +182,79 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <header className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url("./src/images/heroimagereal.jpg")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'brightness(0.3)'
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70 z-0" />
-        <div className="text-center text-white z-10 px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">Lallooji Shivgoind Das Tent Co.</h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-200">Everything You Need</p>
-          <Button 
-            onClick={() => scrollToSection('inquiry')}
-            className="bg-[#FF6B35] hover:bg-[#ff8255] text-white text-lg px-8 py-6"
-          >
-            Plan Your Event
-          </Button>
-        </div>
-      </header>
+<header className="relative h-screen flex items-center justify-center overflow-hidden">
+  <video 
+    autoPlay 
+    loop 
+    muted 
+    playsInline
+    className="absolute inset-0 w-full h-full object-cover z-0"
+    style={{ filter: 'brightness(0.5)' }}
+  >
+    <source src="./src/videos/heropagevid.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  {/* Texture overlay */}
+  <div 
+    className="absolute inset-0 z-10"
+    style={{
+      backgroundImage: 'url("./src/textures/cross-stripes.png")',
+      backgroundRepeat: 'repeat',
+      mixBlendMode: 'overlay',
+      opacity: 0.25
+    }}
+  />
+  {/* Content */}
+  <div className="text-center text-white z-30 px-4 relative">
+    <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">
+      Lallooji Shivgoind Das Tent Co.
+    </h1>
+    <p className="text-xl md:text-2xl mb-8 text-gray-100 drop-shadow-md">
+      Everything You Need
+    </p>
+    <Button 
+      onClick={() => scrollToSection('inquiry')}
+      className="bg-[#FF6B35] hover:bg-[#ff8255] text-white text-lg px-8 py-6 shadow-lg"
+    >
+      Plan Your Event
+    </Button>
+  </div>
+</header>
 
-      {/* Services Grid */}
-      <section id="services" className="py-20 px-4 bg-neutral-900">
-        {/* Rest of the services section remains the same */}
-        <h2 className="text-4xl font-bold text-white text-center mb-16">Our Services</h2>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* ... existing service cards ... */}
-          <Card className="p-6 bg-black/50 border-[#FF6B35]/20 transform hover:scale-105 transition-transform">
-            <Tent className="w-12 h-12 text-[#FF6B35] mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Premium Tents</h3>
-            <p className="text-gray-400">Luxury tents for weddings, corporate events, and celebrations</p>
-          </Card>
-          <Card className="p-6 bg-black/50 border-[#FF6B35]/20 transform hover:scale-105 transition-transform">
-            <Calendar className="w-12 h-12 text-[#FF6B35] mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Event Planning</h3>
-            <p className="text-gray-400">Full-service event planning and coordination</p>
-          </Card>
-          <Card className="p-6 bg-black/50 border-[#FF6B35]/20 transform hover:scale-105 transition-transform">
-            <Users className="w-12 h-12 text-[#FF6B35] mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Staff Services</h3>
-            <p className="text-gray-400">Professional event staff and security personnel</p>
-          </Card>
-          <Card className="p-6 bg-black/50 border-[#FF6B35]/20 transform hover:scale-105 transition-transform">
-            <Music className="w-12 h-12 text-[#FF6B35] mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Entertainment</h3>
-            <p className="text-gray-400">Live bands, DJs, and performers for your event</p>
-          </Card>
-          <Card className="p-6 bg-black/50 border-[#FF6B35]/20 transform hover:scale-105 transition-transform">
-            <Utensils className="w-12 h-12 text-[#FF6B35] mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Catering</h3>
-            <p className="text-gray-400">Gourmet catering and beverage services</p>
-          </Card>
-          <Card className="p-6 bg-black/50 border-[#FF6B35]/20 transform hover:scale-105 transition-transform">
-            <PartyPopper className="w-12 h-12 text-[#FF6B35] mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Decor & Design</h3>
-            <p className="text-gray-400">Custom event design and decorative elements</p>
-          </Card>
+       {/* Services Section with Interactive Cards */}
+       <section id="services" className="py-20 px-4 bg-neutral-900">
+  <h2 className="text-4xl font-bold text-white text-center mb-16">Company Profile</h2>
+  <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    {serviceCards.map((card, index) => (
+      <div 
+        key={index} 
+        className="relative cursor-pointer group" 
+        onClick={() => toggleCard(index)}
+      >
+        <div className="relative h-64 rounded overflow-hidden shadow-lg">
+          <img 
+            src={card.image} 
+            alt={card.title} 
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
+          />
+          {/* Title overlay that stays centered */}
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300">
+            <h3 className="text-white text-2xl font-bold">{card.title}</h3>
+          </div>
         </div>
-      </section>
+        
+        {/* Separate description container */}
+        <div 
+          className={`mt-4 p-4 bg-black/70 text-white rounded transition-all duration-300 ${
+            openCards[index] ? 'opacity-100 max-h-96' : 'opacity-0 max-h-0 overflow-hidden'
+          }`}
+        >
+          <p className="text-sm leading-relaxed">{card.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* Inquiry Form */}
       <section id="inquiry" className="py-20 px-4 bg-[#FF6B35]">
@@ -224,6 +268,7 @@ function App() {
               placeholder="Your Name"
               value={formData.name}
               onChange={handleChange}
+              className="text-white"
               required
             />
             <Input
@@ -232,6 +277,7 @@ function App() {
               placeholder="Your Email"
               value={formData.email}
               onChange={handleChange}
+              className="text-white"
               required
             />
              <Input
@@ -240,6 +286,7 @@ function App() {
               placeholder="Your Phone Number"
               value={formData.phone}
               onChange={handleChange}
+              className="text-white"
             />
             <Input
               type="text"
@@ -247,13 +294,31 @@ function App() {
               placeholder="Event Location"
               value={formData.location}
               onChange={handleChange}
+              className="text-white"
+            />
+            <Input
+              type="date"
+              name="startDate"
+              placeholder="Start Date"
+              value={formData.startDate}
+              onChange={handleChange}
+              className="text-white"
+            />
+             <Input
+              type="date"
+              name="endDate"
+              placeholder="End Date"
+              value={formData.endDate}
+              onChange={handleChange}
+              className="text-white"
             />
             <Textarea
               name="details"
               placeholder="Event Details"
               value={formData.details}
               onChange={handleChange}
-              rows={4}
+              className="text-white"
+              rows={2}
             />
             <Button type="submit" disabled={isSubmitting} className="bg-[#FF6B35] hover:bg-[#ff8255] text-white text-lg px-8 py-6">
               {isSubmitting ? "Submitting..." : "Send Inquiry"}
@@ -289,7 +354,7 @@ function App() {
 
       {/* Footer */}
       <footer className="py-8 bg-black text-center text-gray-400">
-        <p>© 2024 Elite Events & Tents. All rights reserved.</p>
+        <p>© 2025 Lalloji Shivgovind Das tent co. All rights reserved.</p>
       </footer>
 
       <Toaster />
